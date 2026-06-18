@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block titulo %}Painel{% endblock %}
+
+{% block conteudo %}
+<section aria-labelledby="titulo-painel">
+  <h1 id="titulo-painel">Painel</h1>
+  <p class="subtitulo">Resumo do estoque em {{ hoje.strftime('%d/%m/%Y') }}.</p>
+
+  <div class="cards">
+    <article class="card">
+      <span class="card__numero">{{ total_produtos }}</span>
+      <span class="card__rotulo">Produtos cadastrados</span>
+    </article>
+    <article class="card card--alerta">
+      <span class="card__numero">{{ vencidos|length }}</span>
+      <span class="card__rotulo">Vencidos</span>
+    </article>
+    <article class="card card--aviso">
+      <span class="card__numero">{{ proximos|length }}</span>
+      <span class="card__rotulo">Vencem em até {{ dias_alerta }} dias</span>
+    </article>
+    <article class="card card--info">
+      <span class="card__numero">{{ estoque_baixo|length }}</span>
+      <span class="card__rotulo">Estoque baixo</span>
+    </article>
+  </div>
+
+  <section aria-labelledby="titulo-vencidos" class="bloco">
+    <h2 id="titulo-vencidos">Produtos vencidos</h2>
+    {% if vencidos %}
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr><th scope="col">Produto</th><th scope="col">Categoria</th><th scope="col">Qtd.</th><th scope="col">Validade</th></tr>
+        </thead>
+        <tbody>
+          {% for p in vencidos %}
+          <tr>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.categoria }}</td>
+            <td>{{ p.quantidade }}</td>
+            <td><span class="tag tag--vencido">{{ p.validade.strftime('%d/%m/%Y') }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="vazio">Nenhum produto vencido. 🎉</p>
+    {% endif %}
+  </section>
+
+  <section aria-labelledby="titulo-proximos" class="bloco">
+    <h2 id="titulo-proximos">Próximos do vencimento</h2>
+    {% if proximos %}
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr><th scope="col">Produto</th><th scope="col">Categoria</th><th scope="col">Qtd.</th><th scope="col">Validade</th></tr>
+        </thead>
+        <tbody>
+          {% for p in proximos %}
+          <tr>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.categoria }}</td>
+            <td>{{ p.quantidade }}</td>
+            <td><span class="tag tag--aviso">{{ p.validade.strftime('%d/%m/%Y') }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="vazio">Nenhum produto próximo do vencimento.</p>
+    {% endif %}
+  </section>
+
+  <section aria-labelledby="titulo-baixo" class="bloco">
+    <h2 id="titulo-baixo">Estoque baixo</h2>
+    {% if estoque_baixo %}
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr><th scope="col">Produto</th><th scope="col">Categoria</th><th scope="col">Qtd.</th></tr>
+        </thead>
+        <tbody>
+          {% for p in estoque_baixo %}
+          <tr>
+            <td>{{ p.nome }}</td>
+            <td>{{ p.categoria }}</td>
+            <td><span class="tag tag--info">{{ p.quantidade }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="vazio">Nenhum produto com estoque baixo.</p>
+    {% endif %}
+  </section>
+</section>
+{% endblock %}

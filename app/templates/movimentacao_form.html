@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block titulo %}Nova movimentação{% endblock %}
+
+{% block conteudo %}
+<section aria-labelledby="titulo-mov-form" class="form-secao">
+  <h1 id="titulo-mov-form">Nova movimentação</h1>
+
+  {% if erro %}
+  <p class="mensagem-erro" role="alert">{{ erro }}</p>
+  {% endif %}
+
+  {% if produtos %}
+  <form action="/movimentacoes/nova" method="post" class="form">
+    <div class="campo">
+      <label for="produto_id">Produto</label>
+      <select id="produto_id" name="produto_id" required>
+        {% for p in produtos %}
+        <option value="{{ p.id }}">{{ p.nome }} (estoque: {{ p.quantidade }})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="campo-linha">
+      <div class="campo">
+        <label for="tipo">Tipo</label>
+        <select id="tipo" name="tipo" required>
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="quantidade">Quantidade</label>
+        <input type="number" id="quantidade" name="quantidade" min="1" step="1" value="1" required>
+      </div>
+    </div>
+
+    <div class="campo">
+      <label for="observacao">Observação (opcional)</label>
+      <input type="text" id="observacao" name="observacao" maxlength="200"
+             placeholder="Ex.: compra semanal, venda do dia">
+    </div>
+
+    <div class="form-acoes">
+      <button type="submit" class="botao botao--primario">Registrar</button>
+      <a href="/movimentacoes" class="botao botao--secundario">Cancelar</a>
+    </div>
+  </form>
+  {% else %}
+  <p class="vazio">Cadastre um produto antes de registrar movimentações.</p>
+  <a href="/produtos/novo" class="botao botao--primario">Cadastrar produto</a>
+  {% endif %}
+</section>
+{% endblock %}

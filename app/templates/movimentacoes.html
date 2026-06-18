@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block titulo %}Movimentações{% endblock %}
+
+{% block conteudo %}
+<section aria-labelledby="titulo-mov">
+  <div class="cabecalho-secao">
+    <h1 id="titulo-mov">Movimentações</h1>
+    <a class="botao botao--primario" href="/movimentacoes/nova">+ Nova movimentação</a>
+  </div>
+
+  {% if movimentacoes %}
+  <div class="tabela-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Data</th>
+          <th scope="col">Produto</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Quantidade</th>
+          <th scope="col">Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in movimentacoes %}
+        <tr>
+          <td>{{ m.criado_em.strftime('%d/%m/%Y %H:%M') if m.criado_em else '—' }}</td>
+          <td>{{ m.produto.nome }}</td>
+          <td>
+            {% if m.tipo.value == 'entrada' %}
+              <span class="tag tag--ok">Entrada</span>
+            {% else %}
+              <span class="tag tag--vencido">Saída</span>
+            {% endif %}
+          </td>
+          <td>{{ m.quantidade }}</td>
+          <td>{{ m.observacao or '—' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="vazio">Nenhuma movimentação registrada ainda.</p>
+  {% endif %}
+</section>
+{% endblock %}

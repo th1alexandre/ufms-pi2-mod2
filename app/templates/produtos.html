@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block titulo %}Produtos{% endblock %}
+
+{% block conteudo %}
+<section aria-labelledby="titulo-produtos">
+  <div class="cabecalho-secao">
+    <h1 id="titulo-produtos">Produtos</h1>
+    <a class="botao botao--primario" href="/produtos/novo">+ Novo produto</a>
+  </div>
+
+  {% if produtos %}
+  <div class="tabela-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Quantidade</th>
+          <th scope="col">Validade</th>
+          <th scope="col">Situação</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in produtos %}
+        <tr>
+          <td>{{ p.nome }}</td>
+          <td>{{ p.categoria }}</td>
+          <td>{{ p.quantidade }}</td>
+          <td>{{ p.validade.strftime('%d/%m/%Y') if p.validade else '—' }}</td>
+          <td>
+            {% set s = situacoes[p.id] %}
+            {% if s == 'vencido' %}<span class="tag tag--vencido">Vencido</span>
+            {% elif s == 'proximo' %}<span class="tag tag--aviso">Vence em breve</span>
+            {% elif s == 'sem_validade' %}<span class="tag">Sem validade</span>
+            {% else %}<span class="tag tag--ok">Em dia</span>{% endif %}
+          </td>
+          <td class="acoes">
+            <a class="botao botao--pequeno" href="/produtos/{{ p.id }}/editar">Editar</a>
+            <form action="/produtos/{{ p.id }}/excluir" method="post" onsubmit="return confirm('Excluir {{ p.nome }}?');">
+              <button class="botao botao--pequeno botao--perigo" type="submit">Excluir</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="vazio">Nenhum produto cadastrado ainda. Use o botão "Novo produto" para começar.</p>
+  {% endif %}
+</section>
+{% endblock %}

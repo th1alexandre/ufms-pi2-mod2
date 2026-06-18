@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}Controle de Estoque{% endblock %} · Trailer de Lanches</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header class="cabecalho">
+    <div class="container cabecalho__conteudo">
+      <a class="cabecalho__marca" href="/">🌭 Controle de Estoque</a>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">☰</button>
+      <nav class="navegacao" aria-label="Navegação principal">
+        <ul id="menu-principal" class="navegacao__lista">
+          <li><a href="/">Painel</a></li>
+          <li><a href="/produtos">Produtos</a></li>
+          <li><a href="/movimentacoes">Movimentações</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container conteudo">
+    {% block conteudo %}{% endblock %}
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>Projeto Integrador de TI II — Módulo 2 · UFMS Digital · Trailer de lanches do bairro Pioneiros</p>
+    </div>
+  </footer>
+
+  <script>
+    const botao = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('menu-principal');
+    botao.addEventListener('click', () => {
+      const aberto = menu.classList.toggle('navegacao__lista--aberta');
+      botao.setAttribute('aria-expanded', aberto);
+    });
+  </script>
+</body>
+</html>

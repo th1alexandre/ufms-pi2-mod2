@@ -1,0 +1,266 @@
+/* ==========================================================================
+   Controle de Estoque - Trailer de Lanches
+   Folha de estilo responsiva (mobile-first).
+   ========================================================================== */
+
+:root {
+  --cor-primaria: #c0392b;
+  --cor-primaria-escura: #96281b;
+  --cor-texto: #21252b;
+  --cor-suave: #6b7280;
+  --cor-fundo: #f4f5f7;
+  --cor-branco: #ffffff;
+  --cor-borda: #e3e6ea;
+  --cor-ok: #1e8449;
+  --cor-aviso: #b9770e;
+  --cor-perigo: #c0392b;
+  --cor-info: #2471a3;
+  --raio: 10px;
+  --sombra: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ----- Cabeçalho / navegação ----- */
+.cabecalho {
+  background: var(--cor-primaria);
+  color: var(--cor-branco);
+  box-shadow: var(--sombra);
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.cabecalho__marca {
+  color: var(--cor-branco);
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+}
+
+.menu-toggle {
+  background: transparent;
+  border: 0;
+  color: var(--cor-branco);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.navegacao { width: 100%; }
+
+.navegacao__lista {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.navegacao__lista--aberta { display: flex; }
+
+.navegacao__lista a {
+  display: block;
+  color: var(--cor-branco);
+  text-decoration: none;
+  padding: 0.5rem 0.25rem;
+  border-radius: var(--raio);
+}
+
+.navegacao__lista a:hover { background: rgba(255, 255, 255, 0.15); }
+
+/* ----- Conteúdo ----- */
+.conteudo { padding-top: 1.5rem; padding-bottom: 2.5rem; }
+
+h1 { font-size: 1.6rem; margin: 0 0 0.25rem; }
+h2 { font-size: 1.2rem; margin: 1.5rem 0 0.5rem; }
+.subtitulo { color: var(--cor-suave); margin-top: 0; }
+
+.cabecalho-secao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ----- Cards do painel ----- */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.card {
+  background: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-info);
+  border-radius: var(--raio);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sombra);
+}
+
+.card--alerta { border-left-color: var(--cor-perigo); }
+.card--aviso { border-left-color: var(--cor-aviso); }
+.card--info { border-left-color: var(--cor-info); }
+
+.card__numero { font-size: 1.8rem; font-weight: 700; }
+.card__rotulo { color: var(--cor-suave); font-size: 0.9rem; }
+
+.bloco { margin-top: 1.5rem; }
+
+/* ----- Tabelas ----- */
+.tabela-wrapper {
+  overflow-x: auto;
+  background: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+table { width: 100%; border-collapse: collapse; min-width: 480px; }
+
+th, td {
+  text-align: left;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 0.95rem;
+}
+
+th { background: #fafbfc; color: var(--cor-suave); font-weight: 600; }
+tbody tr:last-child td { border-bottom: 0; }
+
+.acoes { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+.acoes form { margin: 0; }
+
+/* ----- Tags / situações ----- */
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #eef0f3;
+  color: var(--cor-suave);
+}
+
+.tag--ok { background: #e5f5ec; color: var(--cor-ok); }
+.tag--aviso { background: #fcf2e0; color: var(--cor-aviso); }
+.tag--vencido { background: #fbe7e5; color: var(--cor-perigo); }
+.tag--info { background: #e6f0f8; color: var(--cor-info); }
+
+.vazio { color: var(--cor-suave); font-style: italic; }
+
+/* ----- Botões ----- */
+.botao {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: var(--raio);
+  padding: 0.55rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  background: #e9ecef;
+  color: var(--cor-texto);
+}
+
+.botao--primario { background: var(--cor-primaria); color: var(--cor-branco); }
+.botao--primario:hover { background: var(--cor-primaria-escura); }
+.botao--secundario { background: var(--cor-branco); border-color: var(--cor-borda); }
+.botao--perigo { background: var(--cor-branco); color: var(--cor-perigo); border-color: #f0c8c4; }
+.botao--perigo:hover { background: #fbe7e5; }
+.botao--pequeno { padding: 0.35rem 0.7rem; font-size: 0.85rem; }
+
+/* ----- Formulários ----- */
+.form-secao { max-width: 560px; }
+
+.form {
+  background: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 1.25rem;
+  box-shadow: var(--sombra);
+  margin-top: 1rem;
+}
+
+.campo { margin-bottom: 1rem; display: flex; flex-direction: column; }
+.campo label { font-weight: 600; margin-bottom: 0.3rem; font-size: 0.92rem; }
+
+.campo input,
+.campo select {
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: 2px solid var(--cor-info);
+  outline-offset: 1px;
+}
+
+.campo-linha { display: flex; gap: 1rem; flex-wrap: wrap; }
+.campo-linha .campo { flex: 1 1 160px; }
+
+.form-acoes { display: flex; gap: 0.6rem; margin-top: 0.5rem; flex-wrap: wrap; }
+
+.mensagem-erro {
+  background: #fbe7e5;
+  color: var(--cor-perigo);
+  border: 1px solid #f0c8c4;
+  border-radius: var(--raio);
+  padding: 0.7rem 0.9rem;
+  margin-top: 1rem;
+}
+
+/* ----- Rodapé ----- */
+.rodape {
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-branco);
+  color: var(--cor-suave);
+  font-size: 0.85rem;
+}
+.rodape p { margin: 1rem 0; }
+
+/* ==========================================================================
+   Telas maiores (tablet / desktop)
+   ========================================================================== */
+@media (min-width: 720px) {
+  .menu-toggle { display: none; }
+  .navegacao { width: auto; }
+  .navegacao__lista {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    gap: 0.5rem;
+  }
+  .cards { grid-template-columns: repeat(4, 1fr); }
+}

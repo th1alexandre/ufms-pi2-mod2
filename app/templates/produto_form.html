@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block titulo %}{{ 'Editar' if produto else 'Novo' }} produto{% endblock %}
+
+{% block conteudo %}
+<section aria-labelledby="titulo-form" class="form-secao">
+  <h1 id="titulo-form">{{ 'Editar produto' if produto else 'Novo produto' }}</h1>
+
+  <form action="{{ acao }}" method="post" class="form">
+    <div class="campo">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" required maxlength="120"
+             value="{{ produto.nome if produto else '' }}">
+    </div>
+
+    <div class="campo">
+      <label for="categoria">Categoria</label>
+      <input type="text" id="categoria" name="categoria" maxlength="60"
+             placeholder="Ex.: Bebidas, Pães, Frios"
+             value="{{ produto.categoria if produto else '' }}">
+    </div>
+
+    <div class="campo-linha">
+      <div class="campo">
+        <label for="quantidade">Quantidade</label>
+        <input type="number" id="quantidade" name="quantidade" min="0" step="1"
+               value="{{ produto.quantidade if produto else 0 }}">
+      </div>
+      <div class="campo">
+        <label for="validade">Validade</label>
+        <input type="date" id="validade" name="validade"
+               value="{{ produto.validade.isoformat() if produto and produto.validade else '' }}">
+      </div>
+    </div>
+
+    <div class="form-acoes">
+      <button type="submit" class="botao botao--primario">Salvar</button>
+      <a href="/produtos" class="botao botao--secundario">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
